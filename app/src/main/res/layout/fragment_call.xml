@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Fragment.CallFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/sip_number"
+                android:padding="15dp"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/bg_field"
+                android:layout_margin="10dp"
+                android:inputType="phone"
+                android:textCursorDrawable="@drawable/color_cursor"/>
+
+            <ImageView
+                android:id="@+id/btn_backslash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_backspace" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_1"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_2"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_3"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_4"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_5"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_6"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_seven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_7"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_8"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_nine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_9"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/star"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_zero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_0"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dot"
+                android:background="@drawable/num_bg"
+                style="@style/Dial.Num.Button.Style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_make_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:elevation="100dp"
+                android:src="@drawable/phone_call"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/incoming_call" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:background="@drawable/bg_field"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/username"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:inputType="text"
+            android:autofillHints="username"
+            android:textCursorDrawable="@drawable/color_cursor"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:background="@drawable/bg_field"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:autofillHints="password"
+            android:textCursorDrawable="@drawable/color_cursor"/>
+        <EditText
+            android:id="@+id/domain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:background="@drawable/bg_field"
+            android:layout_margin="20dp"
+            android:hint="@string/sip_domain"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:inputType="text"
+            android:autofillHints="domain"
+            android:textCursorDrawable="@drawable/color_cursor"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rb_udp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                android:text="@string/udp"
+                android:theme="@style/MyRadioButton"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/rb_tcp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                android:text="@string/tcp"
+                android:theme="@style/MyRadioButton"/>
+            <RadioButton
+                android:id="@+id/rb_tls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                android:text="@string/tls"
+                android:theme="@style/MyRadioButton"/>
+        </RadioGroup>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_field"
+            android:backgroundTint="@color/primary"
+            android:layout_margin="20dp">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textAllCaps="true"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp"
+                android:textFontWeight="600"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_field"
+                android:backgroundTint="@color/primary"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ProgressBar
+                android:id="@+id/progress_login"
+                android:theme="@style/Base.Widget.AppCompat.ProgressBar."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/btn_login"
+                app:layout_constraintEnd_toEndOf="@+id/btn_login"
+                app:layout_constraintTop_toTopOf="@+id/btn_login"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_login" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/scanQr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scan_qr_code"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/primary"
+            app:drawableEndCompat="@drawable/ic_qr" />
+
+
+    </LinearLayout>
+
+
+</layout>

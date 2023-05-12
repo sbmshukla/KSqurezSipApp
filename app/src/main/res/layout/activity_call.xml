@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.CallActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_avatar"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="100dp"/>
+
+        <TextView
+            android:id="@+id/tv_call_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calling"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textFontWeight="400"
+            android:fontFamily="@font/poppins"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_profile"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile"/>
+
+        <TextView
+            android:id="@+id/tv_sip_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sip:8128618176@ksquarez.com"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textFontWeight="400"
+            android:fontFamily="@font/poppins"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_call_status"
+            app:layout_constraintEnd_toEndOf="@id/tv_call_status"
+            app:layout_constraintTop_toBottomOf="@+id/tv_call_status"/>
+
+        <LinearLayout
+            android:id="@+id/lt_action_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/tv_sip_id"
+            app:layout_constraintEnd_toEndOf="@id/tv_sip_id"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sip_id">
+
+            <ImageView
+                android:id="@+id/iv_speaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_call_on_speaker" />
+
+            <ImageView
+                android:id="@+id/iv_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_mic_24" />
+            <ImageView
+                android:id="@+id/iv_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_pause_call" />
+        </LinearLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_put_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/end_call_icon"
+            app:tint="@color/black"
+            android:background="@color/white"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:layout_constraintStart_toStartOf="@id/lt_action_holder"
+            app:layout_constraintEnd_toEndOf="@+id/lt_action_holder"
+            app:layout_constraintTop_toBottomOf="@+id/lt_action_holder"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
