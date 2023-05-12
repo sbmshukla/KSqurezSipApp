@@ -3,6 +3,7 @@ package com.example.ksqurezsipapp.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -13,7 +14,6 @@ import com.example.ksqurezsipapp.Fragment.ContactsFragment
 import com.example.ksqurezsipapp.Fragment.HistoryFragment
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.ActivityMainBinding
-import com.example.ksqurezsipapp.databinding.ActivitySplashScreenBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -58,16 +58,44 @@ class MainActivity : AppCompatActivity() {
 
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            binding.appBar.ivDrawerMenu.setOnClickListener {
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+            appBar.ivDrawerMenu.setOnClickListener {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START))
+                {
                     drawerLayout.closeDrawer(GravityCompat.START)
-                }
-                else{
+                }else{
                     drawerLayout.openDrawer(GravityCompat.START)
                 }
-            }
 
+            }
+            appBar.tvPort.setOnClickListener {
+                PopupMenu(this@MainActivity, it).apply {
+                    setOnMenuItemClickListener { item ->
+                        when (item?.itemId) {
+
+                            R.id.network_tcp -> {
+                                appBar.tvPort.setText(R.string.tcp)
+                                true
+                            }
+                            R.id.network_tls -> {
+                                appBar.tvPort.setText(R.string.tls)
+                                true
+                            }
+                            R.id.network_udp -> {
+                                appBar.tvPort.setText(R.string.udp)
+                                true
+                            }
+
+                            else -> false
+                        }
+                    }
+                    inflate(R.menu.network_tyes_menu)
+                    show()
+                }
+            }
             navView.setNavigationItemSelectedListener {
+
+                drawerLayout.openDrawer(GravityCompat.START)
                 when (it.itemId) {
                     R.id.nav_setting -> {
                         Toast.makeText(this@MainActivity, "First Item Clicked", Toast.LENGTH_SHORT).show()
@@ -79,12 +107,14 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "Third Item Clicked", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
+
         }
+
     }
+
     private  fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container,fragment)
