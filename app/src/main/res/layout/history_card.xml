@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,7 +12,6 @@
         android:background="@drawable/contact_bg"
         android:elevation="10dp"
         android:padding="10dp">
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/tv_contact_profile"
             android:layout_width="match_parent"
@@ -21,7 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
@@ -37,19 +36,32 @@
             app:layout_constraintStart_toEndOf="@+id/tv_contact_profile"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_call_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_call_made"
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+
         <TextView
-            android:id="@+id/tv_number"
+            android:id="@+id/tv_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="8128618176@KSquarez.com"
+            android:text="@string/_2_today_12_40pm"
             app:layout_constrainedWidth="true"
             android:fontFamily="@font/poppins"
             android:textFontWeight="200"
             android:textColor="@color/primary"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_call_type"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="@+id/tv_name"/>
+            app:layout_constraintEnd_toEndOf="@+id/tv_name"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_call_type"/>
+
+
+
 
         <ImageView
             android:id="@+id/iv_call"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.IncomingCallActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/incoming_bg">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_incoming_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_women"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="100dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_caller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/falguni_maheta"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textFontWeight="400"
+            android:fontFamily="@font/poppins"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_incoming_profile"
+            app:layout_constraintEnd_toEndOf="@id/iv_incoming_profile"
+            app:layout_constraintTop_toBottomOf="@+id/iv_incoming_profile"/>
+
+        <TextView
+            android:id="@+id/tv_caller_sip_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sip:8128618176@ksquarez.com"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textFontWeight="400"
+            android:fontFamily="@font/poppins"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_caller_name"
+            app:layout_constraintEnd_toEndOf="@id/tv_caller_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caller_name"/>
+
+        <LinearLayout
+            android:id="@+id/lt_action_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caller_sip_id"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_pick_call"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:tint="@color/black"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/ic_call_return" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_put_call"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/put_call" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

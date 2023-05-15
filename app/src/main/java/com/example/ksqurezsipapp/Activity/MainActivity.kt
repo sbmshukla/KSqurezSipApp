@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
+            toggle.isDrawerIndicatorEnabled = true
+
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
@@ -66,8 +68,8 @@ class MainActivity : AppCompatActivity() {
                 }else{
                     drawerLayout.openDrawer(GravityCompat.START)
                 }
-
             }
+
             appBar.tvPort.setOnClickListener {
                 PopupMenu(this@MainActivity, it).apply {
                     setOnMenuItemClickListener { item ->
@@ -93,6 +95,8 @@ class MainActivity : AppCompatActivity() {
                     show()
                 }
             }
+
+
             navView.setNavigationItemSelectedListener {
 
                 drawerLayout.openDrawer(GravityCompat.START)

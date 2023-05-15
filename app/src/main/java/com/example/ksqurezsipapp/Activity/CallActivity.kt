@@ -15,5 +15,6 @@ class CallActivity : AppCompatActivity() {
 
         binding.ivPutCall.setOnClickListener { finish() }
 
+
     }
 }

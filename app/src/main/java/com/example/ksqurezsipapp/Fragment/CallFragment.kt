@@ -11,6 +11,7 @@ import android.view.inputmethod.BaseInputConnection
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.ksqurezsipapp.Activity.CallActivity
+import com.example.ksqurezsipapp.Activity.IncomingCallActivity
 import com.example.ksqurezsipapp.Activity.MainActivity
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.FragmentCallBinding
@@ -71,7 +72,8 @@ class CallFragment : Fragment() {
 
 
         binding.ivMakeCall.setOnClickListener {
-            val i = Intent(context, CallActivity::class.java)
+//            val i = Intent(context, CallActivity::class.java)
+            val i = Intent(context, IncomingCallActivity::class.java)
             // on below line we are
             // starting a new activity.
             startActivity(i)

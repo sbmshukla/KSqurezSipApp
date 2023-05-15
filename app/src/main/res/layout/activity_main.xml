@@ -19,9 +19,9 @@
              app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/drawerLayout"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintStart_toStartOf="parent"
