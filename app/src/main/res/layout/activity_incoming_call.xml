@@ -38,7 +38,7 @@
             android:id="@+id/tv_caller_sip_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sip:8128618176@ksquarez.com"
+            android:text="@string/sip_8128618176_ksquarez_com"
             android:layout_margin="10dp"
             android:textColor="@color/white"
             android:textFontWeight="400"

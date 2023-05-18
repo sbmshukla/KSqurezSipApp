@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ksqurezsipapp.Model.ContactModel
+import com.example.ksqurezsipapp.Data.Model.ContactModel
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.ContactCardBinding
 

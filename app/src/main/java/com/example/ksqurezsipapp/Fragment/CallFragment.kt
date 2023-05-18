@@ -21,7 +21,7 @@ class CallFragment : Fragment() {
 
     lateinit var binding: FragmentCallBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_call, container, false)
 
@@ -73,7 +73,9 @@ class CallFragment : Fragment() {
 
         binding.ivMakeCall.setOnClickListener {
 //            val i = Intent(context, CallActivity::class.java)
-            val i = Intent(context, IncomingCallActivity::class.java)
+            val i = Intent(context, CallActivity::class.java)
+            i.putExtra("sipAddress",binding.editTextPhone.text.toString())
+            i.putExtra("sipDomain",binding.editTextPhone.text.toString())
             // on below line we are
             // starting a new activity.
             startActivity(i)

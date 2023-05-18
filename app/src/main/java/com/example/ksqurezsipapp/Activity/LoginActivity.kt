@@ -2,16 +2,14 @@ package com.example.ksqurezsipapp.Activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.ksqurezsipapp.Data.Helper.MyApplicationPreference
+import com.example.ksqurezsipapp.Data.Helper.MyApplications
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.ActivityLoginBinding
 import org.linphone.core.Account
@@ -28,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var core: Core
     var userVerified: Boolean = true
+    var port:String=""
+
+    lateinit var myShared : SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +38,11 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         val factory = Factory.instance()
-        factory.setDebugMode(true, "Hello Linphone")
+        factory.setDebugMode(true, "Call Sip")
         core = factory.createCore(null, null, this)
+
+        myShared = this.getSharedPreferences("pref_file", Context.MODE_PRIVATE)
+        editor =myShared.edit()
 
         binding.btnLogin.setOnClickListener {
 
@@ -74,14 +79,24 @@ class LoginActivity : AppCompatActivity() {
         // TLS is strongly recommended
         // Only use UDP if you don't have the choice
         val transportType = if (binding.rbTcp.isChecked) {
+            port="tcp"
             TransportType.Tcp
         } else if (binding.rbTls.isChecked) {
+            port="tls"
             TransportType.Tls
         } else if (binding.rbUdp.isChecked) {
+            port="udp"
             TransportType.Udp
         } else {
+            port="udp"
             TransportType.Udp
         }
+
+        editor.putString("username",username)
+        editor.putString("password",password)
+        editor.putString("domain",domain)
+        editor.putString("transportType",port)
+        editor.putBoolean("isLogin",true)
 
         // To configure a SIP account, we need an Account object and an AuthInfo object
         // The first one is how to connect to the proxy server, the second one stores the credentials
@@ -152,7 +167,15 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
             } else if (state == RegistrationState.Ok) {
                 Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
+                //Saving in shared preference
+
+                editor.apply()
+                editor.commit() // shared preference save
+
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
+
+
+
                 // on below line we are
                 // starting a new activity.
                 startActivity(intent)

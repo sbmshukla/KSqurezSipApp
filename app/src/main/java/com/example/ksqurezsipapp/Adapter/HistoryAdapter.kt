@@ -3,7 +3,7 @@ package com.example.ksqurezsipapp.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ksqurezsipapp.Model.HistoryModel
+import com.example.ksqurezsipapp.Data.Model.HistoryModel
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.HistoryCardBinding
 

@@ -40,7 +40,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -57,5 +57,12 @@ dependencies {
     // Latest version is 5.0.x, using + to get the latest available
     implementation 'org.linphone:linphone-sdk-android:5.0+'
 
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    //multi dex (multiple device support 64bit)
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Adding this dependency allows the linphone-sdk to automatically handle audio focus
+    implementation 'androidx.media:media:1.6.0'
 
 }

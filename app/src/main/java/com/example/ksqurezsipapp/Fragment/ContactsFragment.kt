@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ksqurezsipapp.Adapter.ContactAdapter
-import com.example.ksqurezsipapp.Model.ContactModel
+import com.example.ksqurezsipapp.Data.Model.ContactModel
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.FragmentContactsBinding
 
@@ -21,7 +21,7 @@ class ContactsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_contacts, container, false)
 
 

@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ksqurezsipapp.Adapter.ContactAdapter
 import com.example.ksqurezsipapp.Adapter.HistoryAdapter
-import com.example.ksqurezsipapp.Model.ContactModel
-import com.example.ksqurezsipapp.Model.HistoryModel
+import com.example.ksqurezsipapp.Data.Model.ContactModel
+import com.example.ksqurezsipapp.Data.Model.HistoryModel
 import com.example.ksqurezsipapp.R
 import com.example.ksqurezsipapp.databinding.FragmentContactsBinding
 import com.example.ksqurezsipapp.databinding.FragmentHistoryBinding
@@ -23,7 +23,7 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_history, container, false)
         binding.rvCallHistory.layoutManager= LinearLayoutManager(context)

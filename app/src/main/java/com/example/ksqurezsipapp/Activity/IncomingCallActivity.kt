@@ -18,13 +18,12 @@ class IncomingCallActivity : AppCompatActivity() {
 
 
         binding.lottiePickCall.setOnClickListener {
-            var i= Intent(this@IncomingCallActivity, CallActivity::class.java)
+            var i = Intent(this@IncomingCallActivity, CallActivity::class.java)
             startActivity(i)
             finish()
         }
 
         binding.lottiePutCall.setOnClickListener {
-
             finish()
         }
 
