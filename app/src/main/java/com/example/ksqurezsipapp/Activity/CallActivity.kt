@@ -2,6 +2,7 @@ package com.example.ksqurezsipapp.Activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import org.linphone.core.RegistrationState
 import org.linphone.core.TransportType
 
 class CallActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityCallBinding
     private lateinit var core: Core
     lateinit var myShared: SharedPreferences
@@ -37,42 +39,60 @@ class CallActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_call)
 
-
-
         myShared = this.getSharedPreferences("pref_file", Context.MODE_PRIVATE)
-        val sipDomain = myShared.getString("domain", "default")
+        val username = myShared.getString("username","default")
+        val password = myShared.getString("password","default")
+        val domain = myShared.getString("domain", "default")
 
         val sipAddress: String? = intent.getStringExtra("sipAddress")
 
-        binding.tvSipId.text = "sip:$sipAddress@$sipDomain"
+        sipUserId= "sip:$sipAddress@$domain"
 
-        sipUserId= "sip:$sipAddress@$sipDomain"
+        binding.tvSipId.text = sipUserId
 
         // We will need the RECORD_AUDIO permission for video call
         if (packageManager.checkPermission(Manifest.permission.RECORD_AUDIO, packageName) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 0)
             return
         }
+
+        val factory = Factory.instance()
+        factory.setDebugMode(true, "Call Sip")
+        core = factory.createCore(null, null, this)
+
+        val authInfo = Factory.instance().createAuthInfo(username!!, null, password, null, null, domain, null)
+
+        val params = core.createAccountParams()
+        val identity = Factory.instance().createAddress("sip:$username@$domain")
+        params.identityAddress = identity
+
+        val address = Factory.instance().createAddress("sip:$domain")
+        address?.transport = TransportType.Udp
+        params.serverAddress = address
+        params.registerEnabled = true
+        val account = core.createAccount(params)
+
+        core.addAuthInfo(authInfo)
+        core.addAccount(account)
+
+        core.defaultAccount = account
+        core.addListener(coreListener)
+        core.start()
+
+        outgoingCall()
+
+        binding.ivPutCall.setOnClickListener {
+            hangUp()
+        }
+
+        binding.ivPause.setOnClickListener {
+            pauseOrResume()
+        }
+
     }
 
     private val coreListener = object: CoreListenerStub() {
-       /* override fun onAccountRegistrationStateChanged(core: Core, account: Account, state: RegistrationState?, message: String) {
-            findViewById<TextView>(org.linphone.core.R.id.registration_status).text = message
-
-            if (state == RegistrationState.Failed) {
-                findViewById<Button>(org.linphone.core.R.id.connect).isEnabled = true
-            } else if (state == RegistrationState.Ok) {
-                findViewById<LinearLayout>(org.linphone.core.R.id.register_layout).visibility = View.GONE
-                findViewById<RelativeLayout>(org.linphone.core.R.id.call_layout).visibility = View.VISIBLE
-            }
-        }*/
-
-        override fun onCallStateChanged(
-            core: Core,
-            call: Call,
-            state: Call.State?,
-            message: String
-        ) {
+        override fun onCallStateChanged(core: Core, call: Call, state: Call.State?, message: String) {
             // This function will be called each time a call state changes,
             // which includes new incoming/outgoing calls
             binding.tvCallStatus.text = message
@@ -95,7 +115,6 @@ class CallActivity : AppCompatActivity() {
                     // You may reach this state multiple times, for example after a pause/resume
                     // or after the ICE negotiation completes
                     // Wait for the call to be connected before allowing a call update
-                    binding.ivPause.isEnabled = true
 
                   /*  findViewById<Button>(org.linphone.core.R.id.toggle_video).isEnabled = true*/
 
@@ -119,11 +138,8 @@ class CallActivity : AppCompatActivity() {
                 }
                 Call.State.Released -> {
                     // Call state will be released shortly after the End state
-                    binding.ivPause.isEnabled = false
-                    binding.ivPutCall.isEnabled = false
                 }
                 Call.State.Error -> {
-
                 }
 
                 else -> {}
@@ -133,8 +149,7 @@ class CallActivity : AppCompatActivity() {
 
     private fun outgoingCall() {
         // As for everything we need to get the SIP URI of the remote and convert it to an Address
-        val remoteSipUri = sipUserId
-        val remoteAddress = Factory.instance().createAddress(remoteSipUri)
+        val remoteAddress = Factory.instance().createAddress(sipUserId)
         remoteAddress ?: return // If address parsing fails, we can't continue with outgoing call process
 
         // We also need a CallParams object
@@ -162,45 +177,10 @@ class CallActivity : AppCompatActivity() {
 
         // Terminating a call is quite simple
         call.terminate()
-    }
-
-    private fun toggleVideo() {
-        if (core.callsNb == 0) return
-        val call = if (core.currentCall != null) core.currentCall else core.calls[0]
-        call ?: return
-
-        // We will need the CAMERA permission for video call
-        if (packageManager.checkPermission(Manifest.permission.CAMERA, packageName) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), 0)
-            return
-        }
-
-        // To update the call, we need to create a new call params, from the call object this time
-        val params = core.createCallParams(call)
-        // Here we toggle the video state (disable it if enabled, enable it if disabled)
-        // Note that we are using currentParams and not params or remoteParams
-        // params is the object you configured when the call was started
-        // remote params is the same but for the remote
-        // current params is the real params of the call, resulting of the mix of local & remote params
-        params?.enableVideo(!call.currentParams.videoEnabled())
-        // Finally we request the call update
-        call.update(params)
-
-        // Note that when toggling off the video, TextureViews will keep showing the latest frame displayed
-    }
-
-    private fun toggleCamera() {
-        // Currently used camera
-        val currentDevice = core.videoDevice
-
-        // Let's iterate over all camera available and choose another one
-        for (camera in core.videoDevicesList) {
-            // All devices will have a "Static picture" fake camera, and we don't want to use it
-            if (camera != currentDevice && camera != "StaticImage: Static picture") {
-                core.videoDevice = camera
-                break
-            }
-        }
+        var intent = Intent(this@CallActivity,MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        core.stop()
     }
 
     private fun pauseOrResume() {
