@@ -79,6 +79,7 @@ class CallFragment : Fragment() {
             // on below line we are
             // starting a new activity.
             startActivity(i)
+            binding.editTextPhone.text.clear()
 
         }
 

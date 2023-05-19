@@ -7,7 +7,9 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -34,27 +36,32 @@ class CallActivity : AppCompatActivity() {
     private lateinit var core: Core
     lateinit var myShared: SharedPreferences
     lateinit var sipUserId:String
+    lateinit var transportType : TransportType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_call)
 
-        myShared = this.getSharedPreferences("pref_file", Context.MODE_PRIVATE)
-        val username = myShared.getString("username","default")
-        val password = myShared.getString("password","default")
-        val domain = myShared.getString("domain", "default")
-
-        val sipAddress: String? = intent.getStringExtra("sipAddress")
-
-        sipUserId= "sip:$sipAddress@$domain"
-
-        binding.tvSipId.text = sipUserId
+        // Awake Screen
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // We will need the RECORD_AUDIO permission for video call
         if (packageManager.checkPermission(Manifest.permission.RECORD_AUDIO, packageName) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 0)
             return
         }
+
+        myShared = this.getSharedPreferences("pref_file", Context.MODE_PRIVATE)
+        val username = myShared.getString("username","default")
+        val password = myShared.getString("password","default")
+        val domain = myShared.getString("domain", "default")
+        val port = myShared.getString("transportType","default")
+
+        val sipAddress: String? = intent.getStringExtra("sipAddress")
+
+        sipUserId= "sip:$sipAddress@$domain"
+
+        binding.tvSipId.text = sipUserId
 
         val factory = Factory.instance()
         factory.setDebugMode(true, "Call Sip")
@@ -67,7 +74,19 @@ class CallActivity : AppCompatActivity() {
         params.identityAddress = identity
 
         val address = Factory.instance().createAddress("sip:$domain")
-        address?.transport = TransportType.Udp
+
+        when (port) {
+            "tcp" -> {
+                transportType = TransportType.Tcp
+            }
+            "tls" -> {
+                transportType = TransportType.Tls
+            }
+            "udp" -> {
+                transportType = TransportType.Udp
+            }
+        }
+        address?.transport = transportType
         params.serverAddress = address
         params.registerEnabled = true
         val account = core.createAccount(params)
@@ -123,6 +142,7 @@ class CallActivity : AppCompatActivity() {
                     /*findViewById<Button>(org.linphone.core.R.id.toggle_camera).isEnabled = core.videoDevicesList.size > 2 && call.currentParams.videoEnabled()*/
                 }
                 Call.State.Paused -> {
+
                     // When you put a call in pause, it will became Paused
                     /*findViewById<Button>(org.linphone.core.R.id.pause).text = "Resume"
                     findViewById<Button>(org.linphone.core.R.id.toggle_video).isEnabled = false*/
@@ -138,8 +158,10 @@ class CallActivity : AppCompatActivity() {
                 }
                 Call.State.Released -> {
                     // Call state will be released shortly after the End state
+                    finish()
                 }
                 Call.State.Error -> {
+                    finish()
                 }
 
                 else -> {}
@@ -177,10 +199,11 @@ class CallActivity : AppCompatActivity() {
 
         // Terminating a call is quite simple
         call.terminate()
-        var intent = Intent(this@CallActivity,MainActivity::class.java)
-        startActivity(intent)
-        finish()
-        core.stop()
+        Handler().postDelayed({
+            Toast.makeText(this, "Call Ended", Toast.LENGTH_SHORT).show()
+            finish()
+        }, 1000)
+
     }
 
     private fun pauseOrResume() {
@@ -196,6 +219,4 @@ class CallActivity : AppCompatActivity() {
             call.resume()
         }
     }
-
-
 }
